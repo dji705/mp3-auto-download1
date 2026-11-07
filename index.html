@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>רשימת קבצי MP3 להורדה</title>
+    <style>
+        body { font-family: system-ui, sans-serif; background: #1e1e2e; color: #cdd6f4; margin: 0; padding: 30px; }
+        .container { max-width: 750px; margin: 0 auto; background: #181825; padding: 25px; border-radius: 12px; border: 1px solid #45475a; }
+        h1 { margin-top: 0; color: #b4befe; font-size: 22px; }
+        .top-bar { margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #313244; }
+        button { cursor: pointer; border: none; font-weight: bold; border-radius: 6px; }
+        .btn-main { background: #a6e3a1; color: #11111b; padding: 12px 20px; font-size: 15px; width: 100%; margin-bottom: 15px; }
+        .file-row { background: #313244; padding: 12px 15px; margin-bottom: 10px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; gap: 15px; }
+        .file-name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 500px; font-size: 14px; }
+        .btn-dl { background: #89b4fa; color: #11111b; padding: 8px 14px; font-size: 13px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="top-bar">
+            <h1>🎵 מרכז הורדות קבצי MP3</h1>
+            <p style="color: #a6adc8; margin: 5px 0 0 0;">סה"כ קבצים שנמצאו: 51</p>
+        </div>
+        <button class="btn-main" onclick="downloadAll()">⚡ הורד את כל הקבצים ביחד</button>
+        <div id="file-list"></div>
+    </div>
+
+    <script>
+        const files = [{"url":"https://galei-israel-od.streamgates.net/Galei_Israel_OD/Audio/diburim051126.mp3","name":"diburim051126.mp3"},{"url":"https://galei-israel-od.streamgates.net/Galei_Israel_OD/Audio/diburim041126.mp3","name":"diburim041126.mp3"},{"url":"https://galei-israel-od.streamgates.net/Galei_Israel_OD/Audio/diburim031126.mp3","name":"diburim031126.mp3"},{"url":"https://galei-israel-od.streamgates.net/Galei_Israel_OD/Audio/kabel031126.mp3","name":"kabel031126.mp3"},{"url":"https://galei-israel-od.streamgates.net/Galei_Israel_OD/Audio/diburim021126.mp3","name":"diburim021126.mp3"},{"url":"https://galei-israel-od.streamgates.net/Galei_Israel_OD/Audio/diburim011126.mp3","name":"diburim011126.mp3"},{"url":"https://galei-israel-od.streamgates.net/Galei_Israel_OD/Audio/diburim291026.mp3","name":"diburim291026.mp3"},{"url":"https://galei-israel-od.streamgates.net/Galei_Israel_OD/Audio/diburim281026.mp3","name":"diburim281026.mp3"},{"url":"https://galei-israel-od.streamgates.net/Galei_Israel_OD/Audio/diburim271026.mp3","name":"diburim271026.mp3"},{"url":"https://galei-israel-od.streamgates.net/Galei_Israel_OD/Audio/diburim261026.mp3","name":"diburim261026.mp3"},{"url":"https://galei-israel-od.streamgates.net/Galei_Israel_OD/Audio/diburim251026.mp3","name":"diburim251026.mp3"},{"url":"https://galei-israel-od.streamgates.net/Galei_Israel_OD/Audio/diburim221026.mp3","name":"diburim221026.mp3"},{"url":"https://galei-israel-od.streamgates.net/Galei_Israel_OD/Audio/diburim211026.mp3","name":"diburim211026.mp3"},{"url":"https://galei-israel-od.streamgates.net/Galei_Israel_OD/Audio/diburim201026.mp3","name":"diburim201026.mp3"},{"url":"https://galei-israel-od.streamgates.net/Galei_Israel_OD/Audio/diburim191026.mp3","name":"diburim191026.mp3"},{"url":"https://galei-israel-od.streamgates.net/Galei_Israel_OD/Audio/diburim181026.mp3","name":"diburim181026.mp3"},{"url":"https://galei-israel-od.streamgates.net/Galei_Israel_OD/Audio/diburim151026.mp3","name":"diburim151026.mp3"},{"url":"https://galei-israel-od.streamgates.net/Galei_Israel_OD/Audio/diburim141026.mp3","name":"diburim141026.mp3"},{"url":"https://galei-israel-od.streamgates.net/Galei_Israel_OD/Audio/diburim131026.mp3","name":"diburim131026.mp3"},{"url":"https://galei-israel-od.streamgates.net/Galei_Israel_OD/Audio/diburim121026.mp3","name":"diburim121026.mp3"},{"url":"https://galei-israel-od.streamgates.net/Galei_Israel_OD/Audio/diburim111026.mp3","name":"diburim111026.mp3"},{"url":"https://galei-israel-od.streamgates.net/Galei_Israel_OD/Audio/diburim081026.mp3","name":"diburim081026.mp3"},{"url":"https://galei-israel-od.streamgates.net/Galei_Israel_OD/Audio/diburim071026.mp3","name":"diburim071026.mp3"},{"url":"https://galei-israel-od.streamgates.net/Galei_Israel_OD/Audio/diburim061026.mp3","name":"diburim061026.mp3"},{"url":"https://galei-israel-od.streamgates.net/Galei_Israel_OD/Audio/diburim051026.mp3","name":"diburim051026.mp3"},{"url":"https://galei-israel-od.streamgates.net/Galei_Israel_OD/Audio/diburim041026.mp3","name":"diburim041026.mp3"},{"url":"https://galei-israel-od.streamgates.net/Galei_Israel_OD/Audio/diburim011026.mp3","name":"diburim011026.mp3"},{"url":"https://galei-israel-od.streamgates.net/Galei_Israel_OD/Audio/dibur300926.mp3","name":"dibur300926.mp3"},{"url":"https://galei-israel-od.streamgates.net/Galei_Israel_OD/Audio/dibur290926.mp3","name":"dibur290926.mp3"},{"url":"https://galei-israel-od.streamgates.net/Galei_Israel_OD/Audio/dibur280926.mp3","name":"dibur280926.mp3"},{"url":"https://galei-israel-od.streamgates.net/Galei_Israel_OD/Audio/dibu270926.mp3","name":"dibu270926.mp3"},{"url":"https://galei-israel-od.streamgates.net/Galei_Israel_OD/Audio/dibo24092026.mp3","name":"dibo24092026.mp3"},{"url":"https://galei-israel-od.streamgates.net/Galei_Israel_OD/Audio/dibur230926.mp3","name":"dibur230926.mp3"},{"url":"https://galei-israel-od.streamgates.net/Galei_Israel_OD/Audio/diburim220926.mp3","name":"diburim220926.mp3"},{"url":"https://galei-israel-od.streamgates.net/Galei_Israel_OD/Audio/diburim160926.mp3","name":"diburim160926.mp3"},{"url":"https://galei-israel-od.streamgates.net/Galei_Israel_OD/Audio/diburim150926.mp3","name":"diburim150926.mp3"},{"url":"https://galei-israel-od.streamgates.net/Galei_Israel_OD/Audio/diburim140926.mp3","name":"diburim140926.mp3"},{"url":"https://galei-israel-od.streamgates.net/Galei_Israel_OD/Audio/diburim100926.mp3","name":"diburim100926.mp3"},{"url":"https://galei-israel-od.streamgates.net/Galei_Israel_OD/Audio/diburim090926.mp3","name":"diburim090926.mp3"},{"url":"https://galei-israel-od.streamgates.net/Galei_Israel_OD/Audio/diburim080926.mp3","name":"diburim080926.mp3"},{"url":"https://galei-israel-od.streamgates.net/Galei_Israel_OD/Audio/diburim070926.mp3","name":"diburim070926.mp3"},{"url":"https://galei-israel-od.streamgates.net/Galei_Israel_OD/Audio/diburim060926.mp3","name":"diburim060926.mp3"},{"url":"https://galei-israel-od.streamgates.net/Galei_Israel_OD/Audio/diburim030926.mp3","name":"diburim030926.mp3"},{"url":"https://galei-israel-od.streamgates.net/Galei_Israel_OD/Audio/diburim020926.mp3","name":"diburim020926.mp3"},{"url":"https://galei-israel-od.streamgates.net/Galei_Israel_OD/Audio/diburim010926.mp3","name":"diburim010926.mp3"},{"url":"https://galei-israel-od.streamgates.net/Galei_Israel_OD/Audio/diburim310826.mp3","name":"diburim310826.mp3"},{"url":"https://galei-israel-od.streamgates.net/Galei_Israel_OD/Audio/diburim300826.mp3","name":"diburim300826.mp3"},{"url":"https://galei-israel-od.streamgates.net/Galei_Israel_OD/Audio/diburim270826.mp3","name":"diburim270826.mp3"},{"url":"https://galei-israel-od.streamgates.net/Galei_Israel_OD/Audio/diburim260826.mp3","name":"diburim260826.mp3"},{"url":"https://galei-israel-od.streamgates.net/Galei_Israel_OD/Audio/diburim250826.mp3","name":"diburim250826.mp3"},{"url":"https://galei-israel-od.streamgates.net/Galei_Israel_OD/Audio/diburim240826.mp3","name":"diburim240826.mp3"}];
+
+        async function downloadSingle(url, name, btn) {
+            if (btn) btn.innerText = '⏳...';
+            try {
+                const res = await fetch(`/api/download?url=${encodeURIComponent(url)}&name=${encodeURIComponent(name)}`);
+                if (!res.ok) throw new Error('Download failed');
+                const blob = await res.blob();
+                const a = document.createElement('a');
+                a.href = URL.createObjectURL(blob);
+                a.download = name;
+                a.click();
+                if (btn) { btn.innerText = '✅ ירד'; btn.style.background = '#a6e3a1'; }
+            } catch(e) {
+                if (btn) { btn.innerText = '❌ שגיאה'; btn.style.background = '#f38ba8'; }
+                console.error(e);
+            }
+        }
+
+        async function downloadAll() {
+            const btns = document.querySelectorAll('.btn-dl');
+            for (let i = 0; i < files.length; i++) {
+                await downloadSingle(files[i].url, files[i].name, btns[i]);
+                await new Promise(r => setTimeout(r, 1200));
+            }
+        }
+
+        const listDiv = document.getElementById('file-list');
+        files.forEach((f, i) => {
+            const row = document.createElement('div');
+            row.className = 'file-row';
+            row.innerHTML = `<span class="file-name" title="${f.name}">${i + 1}. ${f.name}</span>
+                             <button class="btn-dl" onclick="downloadSingle('${f.url}', '${f.name}', this)">הורד 📥</button>`;
+            listDiv.appendChild(row);
+        });
+    </script>
+</body>
+</html>
